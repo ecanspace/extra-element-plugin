@@ -1,0 +1,6 @@
+@include extra(drawer) {
+  &.el-drawer__wrapper {
+    left: auto;
+    top: auto;
+  }
+}

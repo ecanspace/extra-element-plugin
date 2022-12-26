@@ -1,0 +1,36 @@
+@include block(table) {
+
+  th.el-table__cell,
+  td.el-table__cell {
+    padding: 8px 0;
+
+    .cell {
+      line-height: 20px;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+  }
+
+  @include element((footer-wrapper, fixed-footer-wrapper)) {
+    tbody td.el-table__cell {
+      background-color: $--ui-color-white;
+    }
+  }
+
+  @include element(footer-wrapper) {
+    margin-top: 20px;
+
+    td.el-table__cell:not(:first-child) .cell {
+      color: $--ui-color-primary;
+      font-weight: 500;
+    }
+
+    .el-table__cell.gutter {
+      background-color: #FFFFFF;
+    }
+
+    .el-table__cell {
+      border-right: none;
+    }
+  }
+}

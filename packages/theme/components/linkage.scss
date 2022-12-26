@@ -1,0 +1,10 @@
+@include extra(linkage) {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  flex-basis: auto;
+}
+
+@include extra(linkage-item) {
+  flex: 1;
+}

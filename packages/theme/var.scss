@@ -1,0 +1,103 @@
+/* 调色盘 
+-------------------------------- */
+$--ui-color-primary: #017EFA;
+$--ui-color-success: #26BC59;
+$--ui-color-warning: #FF9D37;
+$--ui-color-danger: #F23B32;
+$--ui-color-info: #AFB4C1;
+$--ui-color-deep-blue: #081A51;
+$--ui-color-text-black: #332E2E;
+$--ui-color-black: #000000;
+$--ui-color-white: #FFFFFF;
+
+// 主色蓝浅色系（数字越大越淡）
+$--ui-color-primary-light-1: #469CF1;
+$--ui-color-primary-light-2: #75BAFF;
+$--ui-color-primary-light-3: #B8DCFF;
+$--ui-color-primary-light-4: #DCEEFF;
+$--ui-color-primary-light-5: #E6F2FF;
+
+// 安全绿浅色系
+$--ui-color-success-light-1: #47D476;
+$--ui-color-success-light-2: #73E398;
+$--ui-color-success-light-3: #A0F0BB;
+$--ui-color-success-light-4: #D3FAE0;
+$--ui-color-success-light-5: #EBFDF1;
+
+// 警示橙浅色系
+$--ui-color-warning-light-1: #FFAD57;
+$--ui-color-warning-light-2: #FCB368;
+$--ui-color-warning-light-3: #FFD09F;
+$--ui-color-warning-light-4: #FFE1C1;
+$--ui-color-warning-light-5: #FFF0E0;
+
+// 危险红浅色系
+$--ui-color-danger-light-1: #F4655F;
+$--ui-color-danger-light-2: #FF8984;
+$--ui-color-danger-light-3: #FFBAB7;
+$--ui-color-danger-light-4: #FFD8D6;
+$--ui-color-danger-light-5: #FFEFEE;
+
+// 深色蓝浅色系
+$--ui-color-deep-blue-light-1: #1B2B65;
+$--ui-color-deep-blue-light-2: #173181;
+$--ui-color-deep-blue-light-3: #4B609E;
+$--ui-color-deep-blue-light-4: #A5B1D7;
+$--ui-color-deep-blue-light-5: #CCD2E3;
+
+// 文字黑浅色系
+$--ui-color-text-black-light-1: #767E87;
+$--ui-color-text-black-light-2: #AFB4C1;
+$--ui-color-text-black-light-3: #DFE0E1;
+$--ui-color-text-black-light-4: #EBEDF3;
+$--ui-color-text-black-light-5: #F7F8FA;
+
+/* 颜色别名 
+-------------------------------- */
+$--ui-color-disabled: $--ui-color-text-black-light-3;
+$--ui-color-hover: $--ui-color-primary-light-5;
+
+$--ui-color-text-primary: $--ui-color-text-black;
+$--ui-color-text-regular: $--ui-color-text-black-light-1;
+$--ui-color-text-secondary: $--ui-color-text-black-light-2;
+$--ui-color-text-placeholder: $--ui-color-text-black-light-2;
+
+$--ui-border-color: $--ui-color-deep-blue-light-5;
+$--ui-border-color-light: $--ui-color-text-black-light-4;
+
+/* 基础变量
+-------------------------------- */
+$--ui-font-size: 14px;
+$--ui-font-size-small: 12px;
+$--ui-font-size-medium: 16px;
+$--ui-font-size-large: 18px;
+$--ui-box-shadow: -4px 0px 10px 0px rgba(41, 45, 55, 0.14);
+
+/* 表单
+-------------------------------- */
+$--ui-input-height: 32px;
+$--ui-input-height-small: 28px;
+
+$--ui-button-gutter: 12px;
+$--ui-button-gutter-large: 20px;
+
+$--ui-option-height: 28px;
+$--ui-option-height-small: 24px;
+$--ui-option-gutter: 2px;
+
+$--ui-form-item-gutter-horizontal: 16px;
+$--ui-form-item-gutter-vertical: 12px;
+
+/* 圆角
+-------------------------------- */
+$--ui-radius-normal: 4px;
+$--ui-radius-large: 8px;
+
+// 表格
+$--ui-table-row-height: 36px;
+$--ui-table-col-gutter: 10px;
+$--ui-thead-background-color: $--ui-color-primary-light-5;
+
+// 弹窗
+$--ui-dialog-padding: 20px;
+$--ui-dialog-padding-small: 16px;

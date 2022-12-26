@@ -1,0 +1,12 @@
+@include extra(form) {
+  &:not(.el-form--inline) {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    overflow: hidden;
+
+    .extra-form-item {
+      flex-shrink: 0;
+    }
+  }
+}

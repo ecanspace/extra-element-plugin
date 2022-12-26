@@ -1,0 +1,10 @@
+@include block(select-dropdown) {
+  @include element(list) {
+    padding: 4px 0 2px;
+  }
+
+  @include element(item) {
+    padding: 0 10px;
+    margin-bottom: 2px;
+  }
+}

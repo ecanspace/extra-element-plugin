@@ -1,0 +1,41 @@
+/* BEM */
+
+@mixin block($name) {
+  $block: '.el-' + $name !global;
+
+  #{$block} {
+    @content;
+  }
+}
+
+@mixin element($nameArray) {
+  $selector: '';
+
+  @each $item in $nameArray {
+    $selector: $selector + $block + '__' + $item + ',';
+  }
+
+  @at-root {
+    #{$selector} {
+      @content;
+    }
+  }
+}
+
+@mixin modifier($name) {
+  $selector: $block + '--' + $name;
+
+  @at-root {
+    #{$selector} {
+      @content;
+    }
+  }
+}
+
+@mixin extra($name) {
+  $block: '.extra-' + $name !global;
+
+  #{$block} {
+    @content;
+  }
+}

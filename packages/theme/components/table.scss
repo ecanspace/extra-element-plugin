@@ -1,0 +1,25 @@
+.business-form-thead {
+	display: flex;
+	flex-direction: row;
+}
+
+.business-form-cell {
+	flex: 1;
+	line-height: inherit;
+}
+
+.business-form-inline {
+	position: relative;
+	margin-bottom: 20px;
+}
+
+.business-form-inline:last-child {
+	margin-bottom: 0;
+}
+
+.business-form-action {
+	position: absolute;
+	top: 0;
+	right: 0;
+	transform: translate(100%, 0);
+}

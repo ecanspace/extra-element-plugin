@@ -1,0 +1,86 @@
+@include extra(dialog) {
+  .el-dialog {
+    padding: $--ui-dialog-padding;
+    border-radius: $--ui-radius-large;
+  }
+
+  .el-dialog__header {
+    padding: 0 0 12px 0;
+    margin-bottom: 12px;
+    border-bottom: 1px solid $--ui-border-color-light;
+  }
+
+  .el-dialog__title {
+    position: relative;
+    padding-left: 13px;
+    font-weight: 500;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      display: inline-block;
+      width: 3px;
+      height: 100%;
+    }
+  }
+
+  .el-dialog__body {
+    padding: 0;
+    min-height: 100px;
+    max-height: 60vh;
+    overflow: auto;
+  }
+
+  .el-dialog__footer {
+    padding: 0;
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  @include modifier(msgbox-mode) {
+    .el-dialog {
+      padding: $--ui-dialog-padding-small;
+    }
+
+    .el-dialog__body {
+      min-height: auto;
+    }
+
+    .extra-dialog-message {
+      padding: 10px 0;
+    }
+  }
+
+  @include modifier(primary) {
+    .el-dialog__title::before {
+      background-color: $--ui-color-primary;
+    }
+  }
+
+  @include modifier(success) {
+    .el-dialog__title::before {
+      background-color: $--ui-color-success;
+    }
+  }
+
+  @include modifier(warning) {
+    .el-dialog__title::before {
+      background-color: $--ui-color-warning;
+    }
+  }
+
+  @include modifier(danger) {
+    .el-dialog__title::before {
+      background-color: $--ui-color-danger;
+    }
+  }
+
+  @include modifier(info) {
+    .el-dialog__title::before {
+      background-color: $--ui-color-info;
+    }
+  }
+}

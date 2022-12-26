@@ -1,0 +1,58 @@
+@include block(form) {
+  @include modifier(inline) {
+    display: flex;
+    flex-wrap: wrap;
+
+    .el-form-item {
+      margin-right: 16px;
+    }
+  }
+
+  @include modifier(label-top) {
+    .el-form-item__label {
+      line-height: normal;
+    }
+  }
+}
+
+@include block(form-item) {
+  margin-bottom: 12px;
+
+  @include element(label) {
+    line-height: $--ui-input-height;
+    padding-right: 10px;
+    max-width: 84px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    box-sizing: content-box;
+  }
+
+  @include element(content) {
+    line-height: $--ui-input-height;
+  }
+
+  @include modifier(medium) {
+
+    .el-form-item__label,
+    .el-form-item__content {
+      line-height: $--ui-input-height;
+    }
+  }
+
+  @include modifier(small) {
+
+    .el-form-item__label,
+    .el-form-item__content {
+      line-height: $--ui-input-height-small;
+    }
+  }
+
+  @include modifier(mini) {
+
+    .el-form-item__label,
+    .el-form-item__content {
+      line-height: $--ui-input-height-small;
+    }
+  }
+}

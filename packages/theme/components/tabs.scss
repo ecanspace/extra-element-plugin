@@ -1,0 +1,24 @@
+@include extra(tabs) {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  flex-basis: auto;
+
+  .el-tabs__header {
+    flex-shrink: 0;
+    padding: 0 16px;
+    margin-bottom: 10px;
+    background-color: #FFFFFF;
+  }
+
+  .el-tabs__content {
+    display: block;
+    flex: 1;
+    overflow: auto;
+  }
+
+  .el-tab-pane {
+    height: 100%;
+  }
+}

@@ -1,0 +1,45 @@
+$scope-append-height: $--ui-input-height - 2px;
+$scope-append-height-small: $--ui-input-height-small - 2px;
+
+.el-input__inner {
+  padding: 0 10px;
+}
+
+@include block(input-group) {
+  position: relative;
+
+  >.el-input__inner {
+    padding: 0 68px 0 10px;
+    border-radius: $--ui-radius-normal;
+  }
+
+  @include modifier(small) {
+    height: $scope-append-height-small;
+    line-height: $scope-append-height-small;
+  }
+
+  @include modifier(mini) {
+    height: $scope-append-height-small;
+    line-height: $scope-append-height-small;
+  }
+
+  .el-input-group__prepend,
+  .el-input-group__append {
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    width: 68px;
+    height: $scope-append-height;
+    line-height: $scope-append-height;
+    padding: 0 10px;
+    background-color: $--ui-color-white;
+    border: none;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: right;
+    // ...
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+}

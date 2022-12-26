@@ -1,0 +1,11 @@
+@include block(cascader-menu) {
+  @include element(list) {
+    padding: 6px 0 4px;
+  }
+}
+
+@include block(cascader-node) {
+  height: $--ui-option-height;
+  line-height: $--ui-option-height;
+  margin-bottom: 2px;
+}

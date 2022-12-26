@@ -1,0 +1,15 @@
+@include block(date-editor) {
+  text-align: center;
+
+  .el-input__inner {
+    text-align: inherit;
+  }
+
+  .el-input__icon,
+  .el-range__icon,
+  .el-range__close-icon,
+  .el-range-separator {
+    height: 24px;
+    line-height: 24px;
+  }
+}
