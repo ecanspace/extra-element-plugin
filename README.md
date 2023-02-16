@@ -1,6 +1,8 @@
-# tzcloud-element-pro
+# extra-element-plugin
 
-A super practical component library that developed by vue2.x and element-ui
+> 特别提醒！！！项目仅供学习和交流，文档并未同步更新。
+
+A practical element plugin that developed by vue2.x and element-ui
 
 ## Installation
 
