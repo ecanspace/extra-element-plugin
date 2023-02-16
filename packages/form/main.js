@@ -4,7 +4,8 @@ import ExtraFormItem from './item'
 
 const FIELD_DEFAULTS = {
   label: 'label',
-  value: 'value'
+  value: 'value',
+  disabled: 'disabled',
 }
 
 /**
@@ -52,8 +53,8 @@ export default {
     },
 
     gutter: {
-      type: [Number, String],
-      default: 20
+      type: [Boolean, Number, String],
+      default: false
     },
   },
 
@@ -65,7 +66,11 @@ export default {
   render(h) {
     const props = Object.assign({}, this.$props)
     props.rules = this.formRules
-    return h(Form, { props, on: this.$listeners }, this.renderFormItems(h))
+    return h(Form, { props, on: this.$listeners, ref: 'elForm' }, this.gutter ? this.renderWrapRow(h) : this.renderFormItems(h))
+  },
+
+  mounted() {
+    this.initAPIMethods()
   },
 
   methods: {
@@ -74,6 +79,8 @@ export default {
       const vnodeMap = new Map()
 
       vnodes && vnodes.forEach((vnode) => {
+        if (!vnode.tag) return;
+        // const attrs = vnode.data.attrs || ( vnode.data.attrs = {} )
         const name = vnode.data.attrs.name || vnode.data.attrs.alias
         name && vnodeMap.set(name, vnode)
       })
@@ -100,45 +107,91 @@ export default {
       this.formRules = rules
     },
 
-    renderFormItems(h) {
+    initAPIMethods() {
+      const elForm = this.$refs.elForm
+      this.validate = elForm.validate.bind(elForm)
+      this.validateField = elForm.validateField.bind(elForm)
+      this.resetFields = elForm.resetFields.bind(elForm)
+      this.clearValidate = elForm.clearValidate.bind(elForm)
+    },
+
+    renderFormItems(h, wrap) {
       if (Array.isArray(this.items)) {
-        const vnodeMap = this.vnodeMap
-        
-        return this.items.map((item) => {
-          if (item.reference) {
-            return vnodeMap.get(item.reference)
-          } else {
-            const props = assignInclude(item, ExtraFormItem.props)
-            return h(ExtraFormItem, { props }, [ this.renderChild(h, item) ])
-          }
-        })
+        const handler = this.genFormItem.bind(this, h)
+        return this.items.map(typeof wrap === 'function' ? wrap(handler) : handler)
       } else {
         return this.$slots.default
       }
     },
 
-    renderChild(h, config) {
+    renderWrapRow(h) {
+      const data = {
+        props: {
+          gutter: this.gutter
+        }
+      }
+
+      const wrapColumn = (genFormItem) => (config) => {
+        const renderData = {
+          props: {
+            span: config.span || 24
+          }
+        }
+        return h('ElCol', renderData, [ genFormItem(h, config) ])
+      }
+
+      return [
+        h('ElRow', data, this.renderFormItems(h, wrapColumn))
+      ]
+    },
+
+    genFormItem(h, config) {
+      if (config.reference) {
+        return this.vnodeMap.get(config.reference)
+      } else {
+        const data = {
+          props: assignInclude(config, ExtraFormItem.props)
+        }
+        return h(ExtraFormItem, data, this.genFormComponent(h, config))
+      }
+    },
+
+    genFormComponent(h, config) {
       const model = this.model
       const props = assignExclude(config, ['component', 'rule', 'data', 'slots'].concat(Object.keys(ExtraFormItem.props)))
 
-      // v-model
-      props.value = model[config.prop]
+      props.value = model[config.prop];
       const listeners = {
+        ...config.on,
         input: (value) => {
           this.$set(model, config.prop, value)
         }
       }
 
       const data = {
-        attrs: {
-          placeholder: config.placeholder,
-        },
+        attrs: assignInclude(config, [
+          'placeholder',
+          'maxlength',
+          'minlength',
+          'autocomplete',
+          'name',
+          'readonly',
+          'max',
+          'min',
+          'step',
+          'autofocus',
+          'form',
+        ]),
         props,
         on: listeners,
+        class: config.class,
+        style: config.style,
       }
       const children = config.children || this.genChildren(h, config) || []
 
-      return h(config.component, data, children)
+      return [
+        h(config.component, data, children)
+      ]
     },
 
     genChildren(h, config) {
@@ -158,14 +211,16 @@ export default {
 
     genOption(h, config) {
       return config.data.map((item, index) => {
-        const label = item[config.fields.label || 'label']
-        const value = item[config.fields.value || 'value']
+        const label = item[config.fields.label]
+        const value = item[config.fields.value]
+        const disabled = item[config.fields.disabled]
 
         return h('ElOption', {
           key: value,
           props: {
             label,
-            value
+            value,
+            disabled
           }
         })
       })
@@ -183,7 +238,7 @@ export default {
           }
         }, label)
       })
-    },
+    },  
 
     genCheckbox(h, config) {
       return config.data.map((item, index) => {

@@ -36,19 +36,16 @@ export class DrawerManager {
     instance._vm.$emit('visible', true)
   }
 
+  // updateDrawer(newProps = {}) {
+  //   this._vm.$emit('propsChange', newProps)
+  // }
+
   close() {
     this._vm.$emit('visible', false)
   }
 
-  destroy() {
-    this._vm.$destroy()
-    this._context = null
-    this._self = null
-    rawDocument.body.removeChild(this._vm.$el)
-  }
-
   updateComponent(instance) {
-    // (options, Ctor) => VNode
+    // To VNode
     instance._vm.$slots.default = this.createVNode(instance.slots.default)
   }
 
@@ -57,6 +54,13 @@ export class DrawerManager {
       key: Date.now().toString().slice(-6),
       props: this.props.propsData
     })
+  }
+
+  destroy() {
+    this._vm.$destroy()
+    this._context = null
+    this._self = null
+    rawDocument.body.removeChild(this._vm.$el)
   }
 }
 

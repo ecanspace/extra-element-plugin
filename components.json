@@ -1,0 +1,8 @@
+{
+  "dialog": "./packages/dialog/index.js",
+  "drawer": "./packages/drawer/index.js",
+  "puzzler": "./packages/puzzler/index.js",
+  "uploader": "./packages/uploader/index.js",
+  "linkage": "./packages/linkage/index.js",
+  "linkage-item": "./packages/linkage-item/index.js"
+}

@@ -6,6 +6,7 @@ const defaultFields = {
   value: 'value',
   data: 'body',
   keyword: 'keyword',
+  disabled: 'disabled',
 }
 
 export default {
@@ -49,7 +50,7 @@ export default {
 
   data() {
     return {
-      model: this.value || this.multiple ? [] : void 0,
+      model: this.value,
       optionData: this.data || [],
       filterData: null,
     }
@@ -128,7 +129,8 @@ export default {
           key: baseKey + index,
           props: {
             label,
-            value
+            value,
+            disabled: item[fields.disabled],
           },
         })
       })
@@ -158,7 +160,7 @@ export default {
         this.filterData = this.optionData.filter(handler)
 
         function handler(item) {
-          filter.some((key) => item[key] && item[key].indexOf(text) !== -1)
+          return filter.some((key) => item[key] && item[key].indexOf(text) !== -1)
         }
       } else {
         this.filterData = this.optionData

@@ -1,25 +1,21 @@
 <template>
   <div class="extra-upload">
     <ul class="extra-upload__file-list">
-      <li class="extra-upload__file" :style="boundingStyle" v-for="(file, index) in files" :key="file.uid">
+      <li class="extra-upload__file" :style="boundingStyle" v-for="(file, i) in thumbFiles" :key="file.uid">
         <el-image class="extra-upload__thumbnail" ref="elImage" :fit="fit" :src="file.url" :preview-src-list="srcList"></el-image>
 
         <div class="extra-upload__actions">
-          <span class="extra-upload__preview" @click="handlePreview(file, index)">
-            <i class="el-icon-zoom-in"></i>
-          </span>
-          <span class="extra-upload__refresh" @click="handleRefresh(file, index)">
-            <i class="el-icon-refresh-right"></i>
-          </span>
-          <span class="extra-upload__remove" @click="handleRemove(file, index)">
-            <i class="el-icon-delete"></i>
+          <span v-for="item in operationList" :key="item.operation" :class="item.class" 
+            @click="handleOperation(item.operation, file, i)">
+            <i :class="item.icon"></i>
           </span>
         </div>
       </li>
     </ul>
 
-    <el-upload ref="elUpload" v-bind="rawProps" :before-upload="handleBeforeUpload" :on-change="handleChange" :on-success="handleSuccess">
-      <i class="el-icon-plus"></i>
+    <el-upload ref="elUpload" v-bind="rawProps" :before-upload="handleBeforeUpload" :on-change="handleChange" :on-success="handleSuccess" v-show="uploadVisible">
+      <!-- <i class="el-icon-plus"></i> -->
+      <slot></slot>
     </el-upload>
   </div>
 </template>
@@ -78,6 +74,19 @@ export default {
       type: String,
       optional: ['fill', 'contain', 'cover', 'none', 'scale-down'],
       default: 'contain'
+    },
+
+    operation: {
+      type: [String, Array],
+      optional: ['preview', 'refresh', 'remove'],
+      default() {
+        const props = this.$options.propsData
+        return props.foldable ? 'preview, remove' : 'preview, refresh, remove'
+      }
+    },
+
+    foldable: {
+      type: Boolean
     }
   },
 
@@ -119,6 +128,30 @@ export default {
           fid: fid,
         }))
       }
+    },
+
+    operationList() {
+      let operation = this.operation
+
+      if (typeof operation === 'string') {
+        operation = operation.split(/,\s*/)
+      }
+
+      operation = operation.map((action) => ({
+        operation: action,
+        class: 'extra-upload__' + action,
+        icon: 'el-icon-' + ( action === 'preview' ? 'zoom-in' : action === 'refresh' ? 'refresh-right' : 'delete' )
+      }))
+
+      return operation
+    },
+
+    thumbFiles() {
+      return this.foldable ? this.files.slice(0, 1) : this.files
+    },
+
+    uploadVisible() {
+      return !this.foldable || this.thumbFiles.length === 0
     }
   },
 
@@ -128,7 +161,7 @@ export default {
     },
 
     files(values = []) {
-      this.$emit('input', values.map((file) => file.fid))
+      this.$emit('input', values.map((file) => file.url))
     }
   },
 
@@ -165,8 +198,8 @@ export default {
     },
 
     handleSuccess(response, file, fileList) {
-      if (response.pubResponse.code === '0000') {
-        const data = response.body
+      if (response.code === '0000') {
+        const data = response.data
         const newFile = {
           uid: file.uid || Date.now().toString().slice(-6),
           url: data.accessUrl,
@@ -182,6 +215,13 @@ export default {
       }
     },
 
+    handleOperation(op, ...args) {
+      return (
+        op === 'preview' ? this.handlePreview(...args) : 
+        op === 'refresh' ? this.handleRefresh(...args) : this.handleRemove(...args)
+      )
+    },
+
     handlePreview(file, index) {
       this.$refs.elImage[index].clickHandler()
     },
@@ -193,7 +233,11 @@ export default {
 
     handleRemove(file, index) {
       if (this.rawProps.disabled) return;
-      this.files.splice(index, 1)
+      if (this.foldable) {
+        this.files = []
+      } else {
+        this.files.splice(index, 1)
+      }
     },
 
     readAsBase64(file) {

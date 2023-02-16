@@ -1,5 +1,5 @@
 <template>
-  <el-drawer class="extra-drawer" :style="drawerStyle" :visible="model" v-bind="drawerProps" @close="handleClose">
+  <el-drawer class="extra-drawer" :visible="model" :style="drawerStyle" v-bind="rawProps" @close="handleClose">
     <slot></slot>
   </el-drawer>
 </template>
@@ -37,9 +37,13 @@ export default {
 
     // Custom
     // --------------------------------
+    width: {
+      type: String
+    },
+
     bounding: {
       type: Object,
-      default: () => ({})
+      default: () => ({ width: '30%' })
     }
   },
 
@@ -50,11 +54,20 @@ export default {
   },
 
   computed: {
+    rawProps() {
+      return assignExclude(this.$props, ['width', 'bounding', 'propsData'])
+    },
+
     drawerStyle() {
       const bounding = this.bounding
-      const style = Object.keys(bounding).reduce(normalizeBoundingMap, {})
+      const style = Object.keys(bounding).reduce(normalizeBounding, {})
 
-      function normalizeBoundingMap(result, prop) {
+      if (this.width) {
+        style.width = this.width
+        style.left = 'auto'
+      }
+
+      function normalizeBounding(result, prop) {
        const value = bounding[prop]
        result[prop] = typeof value === 'number' ? value + 'px' : value
        return result
@@ -62,10 +75,6 @@ export default {
 
       return style
     },
-
-    drawerProps() {
-      return assignExclude(this.$props, ['bounding', 'propsData'])
-    }
   },
 
   created() {
@@ -76,6 +85,15 @@ export default {
   methods: {
     handleVisible(val) {
       this.model = val
+      if (this.closeOnPressEscape) {
+        this.$nextTick(() => {
+          if (this.model) {
+            document.addEventListener('keydown', this.handleKeydown)
+          } else {
+            document.removeEventListener('keydown', this.handleKeydown)
+          }
+        })
+      }
     },
 
     handlePropsChange(newProps) {
@@ -83,7 +101,13 @@ export default {
     },
 
     handleClose() {
-      this.model = false
+      this.handleVisible(false)
+    },
+
+    handleKeydown(event) {
+      if (event.keyCode === 27) {
+        this.handleClose()
+      }
     }
   }
 }

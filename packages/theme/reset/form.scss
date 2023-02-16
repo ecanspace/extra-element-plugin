@@ -32,6 +32,11 @@
     line-height: $--ui-input-height;
   }
 
+  @include element(error--inline) {
+    display: block;
+    margin-left: 0px;
+  }
+
   @include modifier(medium) {
 
     .el-form-item__label,

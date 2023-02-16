@@ -1,6 +1,129 @@
-@import './mixin.scss';
-@import './components/tabs.scss';
-@import './components/form.scss';
-@import './components/linkage.scss';
-@import './components/table-form.scss';
-@import './components/drawer.scss';
+@import './var.scss';
+
+/* Element Color 
+-------------------------------- */
+// primary
+$--color-primary: $--ui-color-primary;
+$--color-primary-light-1: $--ui-color-primary-light-1;
+$--color-primary-light-2: $--ui-color-primary-light-2;
+$--color-primary-light-3: $--ui-color-primary-light-3;
+$--color-primary-light-4: $--ui-color-primary-light-4;
+$--color-primary-light-5: $--ui-color-primary-light-5;
+
+// success
+$--color-success: $--ui-color-success;
+$--color-success-light: $--ui-color-success-light-4;
+$--color-success-lighter: $--ui-color-success-light-5;
+
+// warning
+$--color-warning: $--ui-color-warning;
+$--color-warning-light: $--ui-color-warning-light-4;
+$--color-warning-lighter: $--ui-color-warning-light-5;
+
+// danger
+$--color-danger: $--ui-color-danger;
+$--color-danger-light: $--ui-color-danger-light-4;
+$--color-danger-lighter: $--ui-color-danger-light-5;
+
+// $--color-info: $--ui-color-info;
+// $--color-info-light: $--ui-color-text-black-light-4;
+// $--color-info-lighter: $--ui-color-text-black-light-5;
+
+// text
+$--color-text-primary: $--ui-color-text-primary;
+$--color-text-regular: $--ui-color-text-regular;
+$--color-text-secondary: $--ui-color-text-secondary;
+$--color-text-placeholder: $--ui-color-text-placeholder;
+
+// border
+$--border-color-base: $--ui-border-color;
+$--border-color-lighter: $--ui-border-color-light;
+$--border-color-light: $--border-color-base;
+$--border-color-extra-light: $--border-color-lighter;
+
+// disabled
+$--disabled-fill-base: $--ui-color-disabled;
+$--disabled-color-base: $--color-text-primary;
+$--disabled-border-base: $--border-color-base;
+
+// background
+$--background-color-base: $--ui-color-hover;
+
+/* Element component
+-------------------------------- */
+// input
+$--input-height: $--ui-input-height;
+$--input-small-height: $--ui-input-height-small;
+$--input-medium-height: $--input-height;
+$--input-mini-height: $--input-small-height;
+$--input-disabled-placeholder-color: $--color-text-regular;
+
+// checkbox
+$--checkbox-bordered-height: $--input-height;
+$--checkbox-bordered-medium-height: $--input-height;
+$--checkbox-bordered-small-height: $--input-small-height;
+$--checkbox-bordered-mini-height: $--input-small-height;
+$--checkbox-bordered-padding: 5px 15px 5px 10px;
+$--checkbox-bordered-small-padding: 3px 15px 3px 10px;
+$--checkbox-bordered-medium-padding: $--checkbox-bordered-padding;
+$--checkbox-bordered-mini-padding: $--checkbox-bordered-small-padding;
+
+// radio
+$--radio-bordered-height: $--input-height;
+$--radio-bordered-medium-height: $--input-height;
+$--radio-bordered-small-height: $--input-small-height;
+$--radio-bordered-mini-height: $--input-small-height;
+$--radio-bordered-padding: 8px 15px 0 10px;
+$--radio-bordered-small-padding: 6px 15px 0 10px;
+$--radio-bordered-medium-padding: $--radio-bordered-padding;
+$--radio-bordered-mini-padding: $--radio-bordered-small-padding;
+
+// select
+$--select-option-height: $--ui-option-height;
+$--select-dropdown-padding: 4px 0;
+
+// button
+$--button-padding-vertical: 8px;
+$--button-small-padding-vertical: 6px;
+$--button-medium-padding-vertical: $--button-padding-vertical;
+$--button-mini-padding-vertical: $--button-small-padding-vertical;
+
+$--button-padding-horizontal: 15px;
+$--button-medium-padding-horizontal: $--button-padding-horizontal;
+$--button-small-padding-horizontal: $--button-padding-horizontal;
+$--button-mini-padding-horizontal: $--button-padding-horizontal;
+
+// table
+$--table-border-color: $--ui-border-color-light;
+$--table-font-color: $--color-text-primary;
+$--table-header-background-color: $--ui-thead-background-color;
+$--table-header-font-color: $--color-text-primary;
+
+// dialog & drawer
+$--dialog-padding-primary: $--ui-dialog-padding;
+$--dialog-title-font-size: $--ui-font-size-medium;
+
+// other
+$--transfer-panel-header-height: $--input-height;
+$--transfer-panel-footer-height: $--input-height;
+$--transfer-item-height: $--select-option-height;
+$--transfer-filter-height: $--input-small-height;
+
+$--avatar-large-size: $--input-height;
+$--avatar-medium-size: $--input-height;
+$--avatar-small-size: $--input-small-height;
+
+$--carousel-arrow-size: $--input-height;
+$--slider-button-wrapper-size: $--input-height;
+
+$--alert-icon-large-size: $--input-small-height;
+$--pagination-button-height: $--input-small-height;
+
+/* Element Font 
+-------------------------------- */
+$--font-path: '~element-ui/lib/theme-chalk/fonts';
+
+// Element 样式文件
+@import '~element-ui/packages/theme-chalk/src/index';
+@import './reset/index.scss';
+@import './components/index.scss';

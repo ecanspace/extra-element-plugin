@@ -78,6 +78,7 @@ export default {
     })
 
     const props = assignExclude(this.$props, ['fetchMethod', 'fields'])
+    props.disabled = props.disabled || this.linkage.disabled
     const listeners = {
       change: this.handleChange
     }
@@ -91,6 +92,13 @@ export default {
     }, [h(Select, { attrs: this.$attrs, props, on: listeners }, OptionList)])
   },
 
+  mounted() {
+    if (this.value) {
+      const next = this.linkage.getItem(this, 1)
+      next && next.fetchData()
+    }
+  },
+
   methods: {
     clear() {
       this.handleInput('')
@@ -98,8 +106,11 @@ export default {
     },
   
     fetchData() {
-      const prevItem = this.linkage.getItem(this, -1)
-      this.fetchMethod({ value: prevItem ? prevItem.model : '', callback: (data) => this.data = data || [] })
+      const prev = this.linkage.getItem(this, -1)
+      this.fetchMethod({
+        value: prev ? prev.model : '',
+        callback: (data) => this.data = data || []
+      })
     },
 
     updateModel(value) {

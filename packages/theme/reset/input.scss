@@ -9,7 +9,7 @@ $scope-append-height-small: $--ui-input-height-small - 2px;
   position: relative;
 
   >.el-input__inner {
-    padding: 0 68px 0 10px;
+    padding: 0 62px 0 10px;
     border-radius: $--ui-radius-normal;
   }
 
@@ -28,7 +28,8 @@ $scope-append-height-small: $--ui-input-height-small - 2px;
     position: absolute;
     top: 1px;
     right: 1px;
-    width: 68px;
+    width: auto;
+    max-width: 62px;
     height: $scope-append-height;
     line-height: $scope-append-height;
     padding: 0 10px;
@@ -36,8 +37,6 @@ $scope-append-height-small: $--ui-input-height-small - 2px;
     border: none;
     display: inline-block;
     vertical-align: middle;
-    text-align: right;
-    // ...
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;

@@ -1,6 +1,56 @@
 @include extra(drawer) {
   &.el-drawer__wrapper {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
     left: auto;
-    top: auto;
+    margin: 0;
+    padding: 10px;
+    overflow: hidden;
+  }
+
+  .el-drawer {
+    box-shadow: $--ui-box-shadow;
+    border-radius: $--ui-radius-large;
+    padding: $--ui-dialog-padding-small;
+  }
+
+  .el-drawer__header {
+    color: $--ui-color-text-primary;
+    font-size: $--ui-font-size-medium;
+    padding: 0 0 12px 0;
+    margin-bottom: 12px;
+    border-bottom: 1px solid $--ui-border-color-light;
+
+    > :first-child {
+      position: relative;
+      padding-left: 13px;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        display: inline-block;
+        width: 3px;
+        height: 100%;
+        background-color: $--ui-color-primary;
+      }
+    }
+  }
+
+  .el-drawer__title {
+    color: inherit;
+    font-size: inherit;
+  }
+
+  .el-drawer__close-btn {
+    padding: 0;
+  }
+
+  .el-drawer__body {
+    margin: 0;
   }
 }

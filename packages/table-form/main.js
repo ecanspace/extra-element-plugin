@@ -1,12 +1,6 @@
 import { Form, FormItem, Button } from 'element-ui'
 import { noop } from '../../src/shared/util'
 
-let seed = 0
-
-function genNumberKey(length = 6) {
-  return Date.now().toString().slice(1 - length) + seed++
-}
-
 /**
  * ‘动态增减表单’
  */
@@ -29,33 +23,38 @@ export default {
     value(values) {
       if (Array.isArray(values)) {
         this.rows = values
+        this.initRowsDefaults()
+      } else {
+        console.warn(`[extra-table-form] warning: Expect an array type, but received a ${typeof values}.`)
       }
     }
   },
 
   created() {
-    if (this.rows.length === 0) {
-      this.rows.push({})
-    }
+    this.initRowsDefaults()
   },
 
   render(h) {
-    const FormList = this.rows.map((row, index) => h(Form, {
-      key: genNumberKey(),
-      props: {
-        model: row,
-        rules: this.rules,
-        inline: true,
-      }
-    }, [
-      this.$slots.default,
-      this.renderButtons(h, row, index)
-    ]))
-
-    return h('div', { class: 'extra-table-form' }, FormList)
+    return h('div', { class: 'extra-table-form' }, this.renderForms(h))
   },
 
   methods: {
+    renderForms(h) {
+      const baseKey = Date.now().toString().slice(-5)
+
+      return this.rows.map((row, index) => h(Form, {
+        key: baseKey + index,
+        props: {
+          model: row,
+          rules: this.rules,
+          inline: true,
+        }
+      }, [
+        this.$slots.default,
+        this.renderButtons(h, row, index)
+      ]))
+    },
+
     renderButtons(h, row, index) {
       const IncreaseButton = h(Button, {
         props: {
@@ -95,11 +94,16 @@ export default {
       this.rows.splice(index, 1)
     },
 
-    // Interface: 
     validate(callback = noop) {
-      let result = []
+      const result = []
       this.$children.forEach((form) => form.validate((valid) => result.push(valid)))
-      callback(result.every((valid) => !!valid))
+      callback(result.every((valid) => valid))
+    },
+
+    initRowsDefaults() {
+      if (this.rows.length === 0) {
+        this.rows.push({})
+      }
     }
   }
 }

@@ -39,3 +39,17 @@
     @content;
   }
 }
+
+@mixin child($nameArray) {
+  $selector: '';
+
+  @each $item in $nameArray {
+    $selector: $selector + $block + '-' + $item + ',';
+  }
+
+  @at-root {
+    #{$selector} {
+      @content;
+    }
+  }
+}

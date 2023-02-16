@@ -1,0 +1,12 @@
+# locale
+node_modules
+lib
+temp_web
+example/dist
+package-lock.json
+test.js
+
+# Editor directories and files
+.git
+.idea
+.vscode

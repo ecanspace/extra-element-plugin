@@ -36,7 +36,8 @@ export default {
       const vnodes = this.$slots.default
       const vnodeMap = new Map()
 
-      vnodes.forEach((vnode) => {
+      vnodes && vnodes.forEach((vnode) => {
+        if (!vnode.tag) return;
         const name = vnode.data.attrs.name || vnode.data.attrs.alias
         name && vnodeMap.set(name, vnode)
       })

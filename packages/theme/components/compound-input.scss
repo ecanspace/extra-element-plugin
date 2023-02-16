@@ -1,0 +1,59 @@
+@include extra(compound-input) {
+  display: flex;
+  flex-direction: row;
+
+  >.el-input {
+    flex: 1;
+  }
+
+  .el-select {
+    flex-shrink: 0;
+    width: 70px;
+
+    .el-input {
+      &.is-focus {
+        border-color: $--ui-border-color;
+      }
+    }
+
+    .el-input__inner {
+      &:focus {
+        border-color: $--ui-border-color;
+      }
+    }
+  }
+
+  @include modifier(prepend) {
+    >.el-input {
+      .el-input__inner {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+    }
+
+    @include element(prepend) {
+      .el-input__inner {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        border-right: none;
+      }
+    }
+  }
+
+  @include modifier(append) {
+    >.el-input {
+      .el-input__inner {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+    }
+
+    @include element(append) {
+      .el-input__inner {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-left: none;
+      }
+    }
+  }
+}

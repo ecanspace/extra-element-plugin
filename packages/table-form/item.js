@@ -1,5 +1,5 @@
 import { FormItem } from 'element-ui'
-import { isUndef } from '../../src/shared/util'
+import { isDef } from '../../src/shared/util'
 
 export default {
   name: 'ExtraTableFormItem',
@@ -11,7 +11,7 @@ export default {
   },
 
   computed: {
-    formModel() {
+    model() {
       return this.$parent.model
     },
 
@@ -22,30 +22,35 @@ export default {
 
   render(h) {
     const props = Object.assign({}, this.$props)
-    props.prop = this.propIsArray ? this.prop[0] : this.prop
-    return h(FormItem, { props }, this.renderSlotComponents(h, this.$slots.default))
+    props.prop = this.propIsArray ? props.prop[0] : props.prop
+    return h(FormItem, { props }, this.renderComponents(h, this.$slots.default))
   },
 
   methods: {
-    renderSlotComponents(h, vnodes) {
+    renderComponents(h, vnodes) {
       return vnodes.map((vnode) => {
         const options = vnode.componentOptions
-        if (isUndef(options)) return vnode
 
-        return h(options.tag, {
-          props: Object.assign({}, options.propsData, {
-            value: this.getPropValue()
-          }),
+        if (isDef(options)) {
+          const props = options.propsData || {}
+          const listeners = options.listeners || {}
 
-          on: Object.assign({}, options.listeners, {
-            input: this.handleInput
-          })
-        }, options.children || [])
+          // v-model
+          props.value = this.getPropValue()
+          listeners.input = this.handleInput
+
+          return h(options.tag, {
+            props,
+            on: listeners
+          }, options.children || [])
+        } else {
+          return vnode
+        }
       })
     },
 
     getPropValue() {
-      const target = this.formModel
+      const target = this.model
 
       if (this.propIsArray) {
         return this.prop.map((prop) => (target[prop] || ''))
@@ -54,13 +59,13 @@ export default {
       }
     },
 
-    handleInput(model) {
-      const target = this.formModel
+    handleInput(value) {
+      const target = this.model
 
       if (this.propIsArray) {
-        this.prop.forEach((prop, index) => this.$set(target, prop, (model || [])[index] || ''))
+        this.prop.forEach((prop, index) => this.$set(target, prop, (value || [])[index] || ''))
       } else {
-        this.$set(target, this.prop, model)
+        this.$set(target, this.prop, value)
       }
     },
   }

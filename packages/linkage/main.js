@@ -1,5 +1,10 @@
+/**
+ * 判断值不为空
+ * @param {*} value 
+ * @returns 
+ */
 function isNonEmpty(value) {
-  return value !== null && value !== undefined && value !== ''
+  return value !== '' && value != null
 }
 
 export default {
@@ -7,6 +12,7 @@ export default {
 
   props: {
     value: Array,
+    disabled: Boolean,
   },
 
   provide() {
@@ -40,7 +46,7 @@ export default {
     },
 
     innerModel(values = []) {
-      if (values.join('') === this.model.join('')) return;
+      if (values.join(',') === this.model.join(',')) return;
       this.model = values
       this.$emit('input', this.model)
       this.$emit('change', this.model)
@@ -69,9 +75,7 @@ export default {
 
   methods: {
     getItem(current, step) {
-      const items = this.items
-      const index = items.indexOf(current)
-      return items[index + step]
+      return this.items[this.items.indexOf(current) + step]
     },
 
     handleItemChange(current) {
@@ -81,10 +85,8 @@ export default {
     },
 
     handleItemClear(current) {
-      const items = this.items
-      const index = items.indexOf(current)
-      const nexted = items.slice(index + 1)
-      nexted.forEach((item) => item.clear())
+      const nextItems = this.items.slice(this.items.indexOf(current) + 1)
+      nextItems.forEach((item) => item.clear())
     },
   },
 }
